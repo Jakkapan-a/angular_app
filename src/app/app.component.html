@@ -1,18 +1,20 @@
-  <div class="wrapper">
-    <app-sidebar></app-sidebar>
-    <app-navbar></app-navbar>
+<div class="wrapper">
+  @if(token != ''){
+  <app-sidebar></app-sidebar>
+  <app-navbar></app-navbar>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+
+
     <div class="content-header">
       <div class="container-fluid">
         <router-outlet></router-outlet>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
-
   </div>
+
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
@@ -27,5 +29,9 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
+}@else {
+  <app-sign-in></app-sign-in>
+}
 </div>
 <!-- ./wrapper -->
+ 
