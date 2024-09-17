@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -17,6 +17,8 @@ export class SignInComponent {
   name: string ='';
 
   constructor(private http: HttpClient){}
+
+  @Output() updateToken: EventEmitter<string> = new EventEmitter<string>();
 
   ngOnInit(): void {
     this.token = localStorage.getItem('angular_token') || '';
@@ -49,6 +51,9 @@ export class SignInComponent {
         // Save token to local storage
         localStorage.setItem('angular_token', this.token ?? '');
         localStorage.setItem('angular_name', res.name);
+
+        // update token in app component
+        this.updateToken.emit(this.token);
       }, (error) => {
         Swal.fire({
           icon: 'error',

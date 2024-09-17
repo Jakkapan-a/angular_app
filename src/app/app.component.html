@@ -28,7 +28,7 @@
   </aside>
   <!-- /.control-sidebar -->
 }@else {
-  <app-sign-in></app-sign-in>
+  <app-sign-in (updateToken)="onTokenUpdate($event)"></app-sign-in>
 }
 </div>
 <!-- ./wrapper -->

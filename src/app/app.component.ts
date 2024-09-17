@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./navbar/navbar.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
@@ -14,8 +14,14 @@ import { SignInComponent } from './sign-in/sign-in.component';
 export class AppComponent  {
   token: string = '';
 
+  // @Input() updateToken: 
+
   ngOnInit(): void {
     this.token = localStorage.getItem('angular_token') || '';
     console.log({token: this.token});
+  }
+
+  onTokenUpdate(token: string): void {
+    this.token = token;
   }
 }
