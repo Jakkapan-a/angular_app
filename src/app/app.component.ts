@@ -12,9 +12,10 @@ import { SignInComponent } from './sign-in/sign-in.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent  {
-  token: string = ''; 
+  token: string = '';
 
   ngOnInit(): void {
     this.token = localStorage.getItem('angular_token') || '';
+    console.log({token: this.token});
   }
 }

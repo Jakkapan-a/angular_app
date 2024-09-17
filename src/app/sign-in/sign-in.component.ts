@@ -47,7 +47,7 @@ export class SignInComponent {
                 
         this.token = res.token; 
         // Save token to local storage
-        localStorage.setItem('angular_token', this.token);
+        localStorage.setItem('angular_token', this.token ?? '');
         localStorage.setItem('angular_name', res.name);
       }, (error) => {
         Swal.fire({

@@ -14,4 +14,10 @@ export class SidebarComponent {
   ngOnInit(): void {
     this.name = localStorage.getItem('angular_name') || '';
   }
+
+  signOut = () => {
+    localStorage.removeItem('angular_token');
+    localStorage.removeItem('angular_name');
+    // window.location.reload();
+  }
 }
