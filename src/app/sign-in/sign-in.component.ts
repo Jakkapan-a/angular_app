@@ -14,8 +14,14 @@ export class SignInComponent {
   token: string = '';
   username: string = '';
   password: string = '';
+  name: string ='';
 
   constructor(private http: HttpClient){}
+
+  ngOnInit(): void {
+    this.token = localStorage.getItem('angular_token') || '';
+  }
+
   signIn = () => {
     if(this.username === '' || this.password === ''){
       Swal.fire({
@@ -32,19 +38,17 @@ export class SignInComponent {
     }
 
     try{
-      this.http.post('https://api.example.com/auth/sign-in', body).subscribe((res: any) => {
+      this.http.post('http://localhost:3000/api/user/signin', body).subscribe((res: any) => {
         Swal.fire({
           icon: 'success',
           title: 'เข้าสู่ระบบสำเร็จ',
           text: 'ยินดีต้อนรับเข้าสู่ระบบ'
         });
-        
-        console.log(res);
-        
+                
         this.token = res.token; 
         // Save token to local storage
-        localStorage.setItem('token', this.token);
-        localStorage.setItem('username', this.username);
+        localStorage.setItem('angular_token', this.token);
+        localStorage.setItem('angular_name', res.name);
       }, (error) => {
         Swal.fire({
           icon: 'error',

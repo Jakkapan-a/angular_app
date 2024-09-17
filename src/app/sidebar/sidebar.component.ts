@@ -9,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+  name: string='';
+
+  ngOnInit(): void {
+    this.name = localStorage.getItem('angular_name') || '';
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./navbar/navbar.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
@@ -11,6 +11,10 @@ import { SignInComponent } from './sign-in/sign-in.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  token: string | undefined = ''; 
+export class AppComponent  {
+  token: string = ''; 
+
+  ngOnInit(): void {
+    this.token = localStorage.getItem('angular_token') || '';
+  }
 }
