@@ -13,12 +13,10 @@ import { SignInComponent } from './sign-in/sign-in.component';
 })
 export class AppComponent  {
   token: string = '';
-
-  // @Input() updateToken: 
-
+  
   ngOnInit(): void {
     this.token = localStorage.getItem('angular_token') || '';
-    console.log({token: this.token});
+    // console.log({token: this.token});
   }
 
   onTokenUpdate(token: string): void {

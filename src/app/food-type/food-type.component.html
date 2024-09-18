@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <!-- Table -->
+   <div class="row">
+    <div class="col-md-12">
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title text-center mb-4">รายการประเภทอาหาร</h4>
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary" (click)="clearForm()" data-toggle="modal" data-target="#myModal">
+                        <i class="fa fa-plus"></i> เพิ่มรายการ
+                    </button>
+                </div>
+                <table class="table table-bordered table-striped table-hover mt-3">
+                    <thead>
+                        <tr>
+                            <th>ชื่อประเภท</th>
+                            <th>หมายเหตุ</th>
+                            <th width="130px" >จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(item of foodTypes; track item)
+                        {
+                            <tr>
+                                <td>{{item.name}}</td>
+                                <td>{{item.remark}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-warning mr-2" (click)="edit(item)" data-toggle="modal" data-target="#myModal">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger" (click)="remove(item)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+   </div>
+</div>
+
+<app-my-modal [modalId]="'myModal'" [title]="'แก้ไขประเภทอาหาร'">
+    <div class="form-group">
+        <label for="foodType">ชื่อประเภท</label>
+        <input type="text" class="form-control" id="foodType" [(ngModel)]="name" placeholder="ประเภทอาหาร">
+    </div>
+    <div class="form-group">
+        <label for="foodTypeDescription">หมายเหตุ</label>
+        <textarea class="form-control" id="foodTypeDescription" [(ngModel)]="remark" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" (click)="save()" class="btn btn-primary" data-bs-dismiss="modal">บันทึก</button>
+    </div>
+</app-my-modal>
