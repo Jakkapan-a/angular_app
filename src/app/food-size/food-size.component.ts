@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-food-size',
   standalone: true,
-  imports: [MyModalComponent,MyModalComponent,FormsModule],
+  imports: [MyModalComponent,FormsModule],
   templateUrl: './food-size.component.html',
   styleUrl: './food-size.component.css'
 })
@@ -138,5 +138,13 @@ export class FoodSizeComponent {
     this.price = item.moneyAdded;
     this.remark = item.remark;
     this.foodTypeId = item.foodTypeId;
+  }
+
+  clear(){
+    this.id = 0;
+    this.name = '';
+    this.price = 0;
+    this.remark = '';
+    this.foodTypeId = 0;
   }
 }

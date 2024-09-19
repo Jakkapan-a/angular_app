@@ -4,10 +4,10 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="text-center">
-                        <h4 class="card-title m-0">ขนาด</h4>
+                        <h4 class="card-title m-0">รสชาติ</h4>
                     </div>
             
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelFoodSize" (click)="clear()">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelTaste" (click)="clear()">
                         <i class="fa fa-plus"></i> เพิ่มรายการ
                     </button>
                 </div>
@@ -19,21 +19,19 @@
                         <tr>
                             <th>ประเภทอาหาร</th>
                             <th>ชื่อ</th>
-                            <th>จ่ายเพิ่ม(บาท)</th>
                             <th>หมายเหตุ</th>
                             <th>จัดการ</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @for(item of foodSizes; track item)
+                        @for(item of tastes; track item)
                         {
                             <tr>
-                                <td>{{item.foodType.name}}</td>
+                                <td>{{item.FoodType.name}}</td>
                                 <td>{{item.name}}</td>
-                                <td>{{item.moneyAdded}}</td>
                                 <td>{{item.remark}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-warning btn-sm mr-2" data-toggle="modal" data-target="#modelFoodSize" (click)="edit(item)">
+                                    <button type="button" class="btn btn-warning btn-sm mr-2" data-toggle="modal" data-target="#modelTaste" (click)="edit(item)">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <button type="button" class="btn btn-danger btn-sm" (click)="remove(item)">
@@ -49,11 +47,12 @@
     </div>
 </div>
 
-<app-my-modal [modalId]="'modelFoodSize'" [title]="'ขนาด'">
+
+<app-my-modal [modalId]="'modelTaste'" [title]="'รสชาติ'">
     <div class="form-group">
         <label for="foodSize">ประเภทอาหาร</label>
-        <select class="form-control" id="foodSize" [(ngModel)]="foodTypeId">
-           @for(item of foodTypes; track item)
+        <select class="form-control" id="foodSize" [(ngModel)]="FoodTypeId">
+           @for(item of FoodTypes; track item)
            {
             <option value="{{item.id}}" >{{item.name}}</option>
            }
@@ -62,10 +61,6 @@
     <div class="form-group">
         <label for="foodSizeName">ชื่อ</label>
         <input type="text" class="form-control" id="foodSizeName" [(ngModel)]="name" placeholder="ชื่อ">
-    </div>
-    <div class="form-group">
-        <label for="foodSizeMony">คิดเงินเพิ่ม(บาท)</label>
-        <input type="number" class="form-control" id="foodSizeMony" [(ngModel)]="price" placeholder="คิดเงินเพิ่ม">
     </div>
     <div class="form-group">
         <label for="foodSizeDescription">หมายเหตุ</label>
