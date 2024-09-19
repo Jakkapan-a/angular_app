@@ -72,11 +72,11 @@ export class FoodTypeComponent implements OnInit {
         .subscribe((res: any) => {
           this.foodTypes = res.results;
         });
-    } catch (e) {
+    } catch (e:any) {
       Swal.fire({
         icon: 'error',
         title: 'เกิดข้อผิดพลาด',
-        text: 'กรุณาลองใหม่อีกครั้ง'
+        text: e.message,
       });
     }
   }
