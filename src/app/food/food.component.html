@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mt-3">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="text-center">
+            <h4 class="card-title m-0">อาหาร/เครื่องดื่ม</h4>
+          </div>
+
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelFood" (click)="clear()">
+            <i class="fa fa-plus"></i> เพิ่มรายการ
+          </button>
+        </div>
+      </div>
+      <div class="card-header">
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+          <tr>
+            <th width="100px" class="text-center">รูปภาพ</th>
+            <th>ประเภทอาหาร</th>
+            <th>หมวดหมู่</th>
+            <th>ชื่อ</th>
+            <th>ราคา</th>
+            <th>หมายเหตุ</th>
+            <th>จัดการ</th>
+          </tr>
+          </thead>
+          <tbody>
+          @for (item of foods; track item) {
+            <tr>
+              <td class="text-center">
+                @if (item.img) {
+                  <img src="{{serverUrl}}/uploads/{{ item.img }}" alt="image" width="100" class="{{ item.img ? '' : 'd-none' }}">
+                } @else {
+                  -
+                }
+              </td>
+              <td>{{ item.FoodType.name }}</td>
+              <td>{{ item.foodType }}</td>
+              <td>{{item.name}}</td>
+              <td>{{ item.money }}</td>
+              <td>{{ item.remark }}</td>
+              <td>
+                <button type="button" class="btn btn-warning btn-sm mr-2" data-toggle="modal" data-target="#modelFood"
+                        (click)="edit(item)">
+                  <i class="fa fa-edit "></i>
+                </button>
+                <button type="button" class="btn btn-danger btn-sm" (click)="remove(item)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-my-modal modalId="modelFood" title="อาหาร-เครื่องดืม">
+  <div class="form-group">
+    <label for="foodType">ประเภทอาหาร</label>
+    <select class="form-control" id="foodType" [(ngModel)]="FoodTypeId">
+      @for (item of foodTypes; track item) {
+        <option value="{{item.id}}">{{ item.name }}</option>
+      }
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="foodName">ชื่ออาหาร</label>
+    <input type="text" class="form-control" id="foodName" [(ngModel)]="name">
+  </div>
+
+  <div class="form-group">
+    <label for="imageFile">รูปภาพ</label>
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="exampleInputFile" (change)="fileSelected($event.target)">
+      <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+    </div>
+    <div class="image-view mt-2 d-none">
+      <img src="#" alt="image" class="image-view" id="preview" width="200">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="foodPrice">ราคา</label>
+    <input type="number" class="form-control" id="foodPrice" [(ngModel)]="price">
+  </div>
+
+  <div class="form-group">
+    <label for="type>">หมวดหมู่</label>
+    <div class="custom-control custom-radio">
+      <input class="custom-control-input" type="radio" id="foodType1" name="foodType" value="food"
+             [(ngModel)]="foodType">
+      <label for="foodType1" class="custom-control-label">อาหาร</label>
+    </div>
+    <div class="custom-control custom-radio">
+      <input class="custom-control-input" type="radio" id="foodType2" name="foodType" value="drink"
+             [(ngModel)]="foodType">
+      <label for="foodType2" class="custom-control-label">เครื่องดื่ม</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="foodRemark">หมายเหตุ</label>
+    <textarea class="form-control" id="foodRemark" rows="3" [(ngModel)]="remark"></textarea>
+  </div>
+
+  <div class="modal-footer border-0">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+    <button type="button" class="btn btn-primary" (click)="save()">บันทึก</button>
+  </div>
+</app-my-modal>

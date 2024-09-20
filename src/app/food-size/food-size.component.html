@@ -6,7 +6,7 @@
                     <div class="text-center">
                         <h4 class="card-title m-0">ขนาด</h4>
                     </div>
-            
+
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelFoodSize" (click)="clear()">
                         <i class="fa fa-plus"></i> เพิ่มรายการ
                     </button>
@@ -14,7 +14,7 @@
             </div>
 
             <div class="card-body">
-               <table class="table table-bordered table-striped">
+               <table class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
                             <th>ประเภทอาหาร</th>
@@ -28,7 +28,7 @@
                         @for(item of foodSizes; track item)
                         {
                             <tr>
-                                <td>{{item.foodType.name}}</td>
+                                <td>{{item.FoodType.name}}</td>
                                 <td>{{item.name}}</td>
                                 <td>{{item.moneyAdded}}</td>
                                 <td>{{item.remark}}</td>
@@ -51,8 +51,8 @@
 
 <app-my-modal [modalId]="'modelFoodSize'" [title]="'ขนาด'">
     <div class="form-group">
-        <label for="foodSize">ประเภทอาหาร</label>
-        <select class="form-control" id="foodSize" [(ngModel)]="foodTypeId">
+        <label for="foodType">ประเภทอาหาร</label>
+        <select class="form-control" id="foodType" [(ngModel)]="FoodTypeId">
            @for(item of foodTypes; track item)
            {
             <option value="{{item.id}}" >{{item.name}}</option>

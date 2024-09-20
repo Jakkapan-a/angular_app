@@ -19,7 +19,7 @@ export class FoodSizeComponent {
   name: string = '';
   price: number = 0;
   remark: string = '';
-  foodTypeId: number = 0;
+  FoodTypeId: number = 0;
   foodTypes: any = [];
   foodSizes: any = [];
 
@@ -28,13 +28,13 @@ export class FoodSizeComponent {
     this.fetchData();
   }
 
-  
+
   fetchDataFoodType() {
     try {
       this.http.get(config.apiUrl + '/api/food-type')
         .subscribe((res: any) => {
           this.foodTypes = res.results;
-          this.foodTypeId = this.foodTypes[0].id;
+          this.FoodTypeId = this.foodTypes[0].id;
         });
     } catch (e:any) {
       Swal.fire({
@@ -49,6 +49,7 @@ export class FoodSizeComponent {
       this.http.get(config.apiUrl + '/api/food-size')
       .subscribe((res: any) => {
         this.foodSizes = res.results;
+
       });
     }catch(e:any){
       Swal.fire({
@@ -65,7 +66,7 @@ export class FoodSizeComponent {
         name: this.name,
         price: this.price,
         remark: this.remark,
-        foodTypeId: this.foodTypeId
+        FoodTypeId: this.FoodTypeId
       };
       if(this.id > 0){
         body.id = this.id;
@@ -122,7 +123,7 @@ export class FoodSizeComponent {
           this.fetchData();
         });
       }
-    
+
     }catch(e:any){
       Swal.fire({
         icon: 'error',
@@ -137,7 +138,8 @@ export class FoodSizeComponent {
     this.name = item.name;
     this.price = item.moneyAdded;
     this.remark = item.remark;
-    this.foodTypeId = item.foodTypeId;
+    this.FoodTypeId = item.FoodTypeId;
+    console.log(item);
   }
 
   clear(){
@@ -145,6 +147,6 @@ export class FoodSizeComponent {
     this.name = '';
     this.price = 0;
     this.remark = '';
-    this.foodTypeId = 0;
+    this.FoodTypeId = this.foodTypes[0].id??0;
   }
 }
