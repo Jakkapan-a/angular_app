@@ -13,6 +13,13 @@
         </div>
       </div>
       <div class="card-header">
+        <!-- Filter -->
+        <div class="d-flex justify-content-start align-items-center mb-3">
+          <button type="button" class="btn btn-primary mr-2" (click)="filter('food')">อาหาร</button>
+          <button type="button" class="btn btn-success mr-2" (click)="filter('drink')">เครื่องดื่ม</button>
+          <button type="button" class="btn btn-secondary mr-2" (click)="filter('')">ทั้งหมด</button>
+        </div>
+
         <table class="table table-bordered table-striped table-hover">
           <thead>
           <tr>
@@ -37,7 +44,7 @@
               </td>
               <td>{{ item.FoodType.name }}</td>
               <td>{{ item.foodType }}</td>
-              <td>{{item.name}}</td>
+              <td>{{ item.name }}</td>
               <td>{{ item.money }}</td>
               <td>{{ item.remark }}</td>
               <td>

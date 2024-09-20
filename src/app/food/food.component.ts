@@ -195,4 +195,15 @@ export class FoodComponent {
       });
     }
   }
+
+  async filter(type: string = ''){
+    if(type == 'all' || type == ''){
+      await this.fetchData();
+    }else{
+      this.http.get(config.apiUrl + '/api/food/filter/' + type).subscribe((res: any) => {
+        this.foods = res.results;
+      });
+    }
+  }
+
 }
