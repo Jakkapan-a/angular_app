@@ -155,7 +155,7 @@ export class FoodComponent {
     this.id = item.id;
     this.name = item.name;
     this.fileName = item.img;
-    this.price = item.money;
+    this.price = item.price;
     this.remark = item.remark;
     this.foodType = item.foodType;
     this.FoodTypeId = item.FoodTypeId;

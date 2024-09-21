@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mt-3">
+      <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="text-center">
+            <h4 class="card-title m-0">ขายอาหาร/เครื่องดื่ม</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <!-- Table -->
+        <div class="input-group mt-3">
+          <span class="input-group-text bg-dark" id="basic-addon1">
+            โต๊ะ:
+          </span>
+          <input type="text" class="form-control" placeholder="โต๊ะ" aria-label="โต๊ะ" aria-describedby="basic-addon1" [(ngModel)]="tableNo">
+        </div>
+        <!-- Filter -->
+        <div class="d-flex justify-content-start align-items-center mb-3 mt-4">
+          <button type="button" class="btn btn-primary mr-2" (click)="filter('food')">อาหาร</button>
+          <button type="button" class="btn btn-success mr-2" (click)="filter('drink')">เครื่องดื่ม</button>
+          <button type="button" class="btn btn-secondary mr-2"  (click)="filter()">ทั้งหมด</button>
+          <button type="button" class="btn btn-warning mr-2" (click)="clearSaleTemp()">ล้างรายการ</button>
+        </div>
+
+
+        <div class="row mt-4">
+          <div class="col-9">
+            <div class="row">
+              @for (item of foods; track item) {
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12">
+                  <div class="card text-center d-flex justify-content-center align-items-center overflow-hidden">
+                    <!--suppress AngularNgOptimizedImage -->
+                    <img src="{{ apiPath}}/uploads/{{ item.img}}" class="card-img" alt="food-{{ item.name}}" height="200" width="auto" (click)="saveSaleTemp(item)">
+                    <div class="card-body">
+                      <h5 class="card-title text-end">{{ item.name}}</h5>
+                      <p class="card-text text-success h5">{{item.price }}</p>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="alert bg-dark text-white text-end h3">{{ amount.toLocaleString('th-TH') }}</div>
+            @for (item of saleTemps; track $index)
+            {
+              <div class="card">
+                <div class="card-body">
+                  <div>{{ item.Food.name }}</div>
+                  <div>{{ item.price }} x {{ item.qty }} = {{ item.price * item.qty }}</div>
+                  <div class="mt-2">
+                    <div class="input-group">
+                      <button class="btn btn-primary" (click)="changeQty(item.id, 'down')">
+                        <i class="fa fa-minus"></i>
+                      </button>
+                      <input class="form-control text-center disabled" disabled [value]="item.qty" />
+                      <button class="btn btn-primary" (click)="changeQty(item.id, 'up')">
+                        <i class="fa fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <div class="row">
+                    <div class="col-4">
+                      <button class="btn btn-danger btn-block" (click)="removeItem(item)">
+                        <i class="fa fa-times"></i>
+                      </button>
+                    </div>
+                    <div class="col-4">
+                      <button class="btn btn-success btn-block"
+                              (click)="chooseFoodSize(item.Food.foodTypeId)" data-bs-toggle="modal"
+                              data-bs-target="#modalFoodSize">
+                        <i class="fa fa-list"></i>
+                      </button>
+                    </div>
+                    <div class="col-4">
+                      <button class="btn btn-info btn-block">
+                        <i class="fa fa-file-alt"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

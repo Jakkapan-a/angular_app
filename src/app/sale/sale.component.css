@@ -1,0 +1,7 @@
+.card-img{
+  width: fit-content !important;
+  transition: transform 0.5s;
+}
+.card img:hover{
+  transform: scale(1.1);
+}

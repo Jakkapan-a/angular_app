@@ -11,7 +11,7 @@
           </button>
         </div>
       </div>
-      <div class="card-header">
+      <div class="card-body">
         <!-- Filter -->
         <div class="d-flex justify-content-start align-items-center mb-3">
           <button type="button" class="btn btn-primary mr-2" (click)="filter('food')">อาหาร</button>
@@ -44,7 +44,7 @@
               <td>{{ item.FoodType.name }}</td>
               <td>{{ item.foodType }}</td>
               <td>{{ item.name }}</td>
-              <td>{{ item.money }}</td>
+              <td>{{ item.price }}</td>
               <td>{{ item.remark }}</td>
               <td>
                 <button type="button" class="btn btn-warning btn-sm mr-2" data-toggle="modal" data-target="#modelFood"

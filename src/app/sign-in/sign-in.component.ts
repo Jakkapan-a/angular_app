@@ -24,9 +24,9 @@ export class SignInComponent {
     this.token = localStorage.getItem('angular_token') || '';
   }
 
-  signIn = () => {
+   signIn = async () => {
     if(this.username === '' || this.password === ''){
-      Swal.fire({
+      await Swal.fire({
         icon: 'error',
         title: 'ตรวจสอบข้อมูล',
         text: 'กรุณากรอกข้อมูล ชื่อผู้ใช้งาน และ รหัสผ่าน ให้ครบถ้วน'
@@ -40,26 +40,31 @@ export class SignInComponent {
     }
 
     try{
-      this.http.post('http://localhost:3000/api/user/signin', body).subscribe((res: any) => {
-        Swal.fire({
+      this.http.post('http://localhost:3000/api/user/signin', body).subscribe( async (res: any) => {
+          if(res.token === undefined){
+            await Swal.fire({
+              icon: 'error',
+              title: 'เข้าสู่ระบบไม่สำเร็จ',
+              text: 'กรุณาตรวจสอบชื่อผู้ใช้งาน และ รหัสผ่าน'
+            });
+            return;
+          }
+         await Swal.fire({
           icon: 'success',
           title: 'เข้าสู่ระบบสำเร็จ',
-          text: 'ยินดีต้อนรับเข้าสู่ระบบ'
+          text: 'ยินดีต้อนรับเข้าสู่ระบบ',
+          showConfirmButton: true,
+          timer: 1500
         });
-                
-        this.token = res.token; 
+
+        this.token = res.token;
         // Save token to local storage
         localStorage.setItem('angular_token', this.token ?? '');
         localStorage.setItem('angular_name', res.name);
+        localStorage.setItem('angular_id', res.id);
 
         // update token in app component
         this.updateToken.emit(this.token);
-      }, (error) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'เกิดข้อผิดพลาด',
-          text: error.error.message
-        });
       });
     }catch(e)
     {
@@ -70,6 +75,6 @@ export class SignInComponent {
         text: error.message
       });
     }
-    
+
   }
 }
