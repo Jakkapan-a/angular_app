@@ -77,6 +77,11 @@ export class FoodComponent {
       };
 
       if(this.id > 0){
+
+        const newFileName = await this.uploadFile();
+        if(newFileName !== null){
+          body.fileName = newFileName;
+        }
         this.http.put(config.apiUrl + '/api/food/' + this.id, body).subscribe((res: any) => {
           Swal.fire({
             icon: 'success',
@@ -128,6 +133,7 @@ export class FoodComponent {
       const res: any = await firstValueFrom(this.http.post(config.apiUrl + '/api/food/upload',formData));
       return res.fileName;
     }
+    return null;
   }
 
   clear(){
