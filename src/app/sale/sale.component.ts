@@ -26,8 +26,11 @@ export class SaleComponent implements OnInit {
   tableNo: number = 1;
   userId: number = 0;
   saleTemps: any[] = [];
-
   amount: number = 0;
+  foodSizes: any[] = [];
+  saleTempId: number = 0;
+  foodName: string = '';
+  saleTempDetail: any[] = [];
 
   ngOnInit() {
     this.apiPath = config.apiUrl;
@@ -133,8 +136,42 @@ export class SaleComponent implements OnInit {
     }
   }
 
-  chooseFoodSize(foodTypeId: number) {}
+  chooseFoodSize(item: any) {
+    try {
+      let foodTypeId: number = item.Food.FoodTypeId;
 
+      this.saleTempId = item.id;
+      this.foodName = item.Food.name;
+      this.http.get(config.apiUrl + '/api/food-size/filter/' + foodTypeId).subscribe((res: any) => {
+        this.foodSizes = res.results;
+      });
+
+
+      console.log(item);
+      const body = {
+        foodId: item.Food.id,
+        qty: item.qty,
+        saleTempId: item.id
+      }
+
+      this.http.post(config.apiUrl + '/api/sale-temp-detail', body).subscribe((res: any) => {
+        this.fetchSaleTempDetail();
+      });
+      console.log(body);
+    }catch (e:any){
+      Swal.fire({
+        icon: 'error',
+        title: 'เกิดข้อผิดพลาด',
+        text: e.message
+      });
+    }
+  }
+
+  fetchSaleTempDetail(){
+    this.http.get(config.apiUrl + '/api/sale-temp-detail/'+this.saleTempId).subscribe((res: any) => {
+      this.saleTempDetail = res.results;
+    });
+  }
   async clearSaleTemp(){
     try {
       const btn = await Swal.fire({
