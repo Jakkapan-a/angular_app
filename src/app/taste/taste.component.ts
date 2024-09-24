@@ -111,6 +111,7 @@ export class TasteComponent {
     }
   }
 
+
   edit(item:any){
     this.id = item.id;
     this.name = item.name;
@@ -134,7 +135,7 @@ export class TasteComponent {
           this.fetchData();
         });
       }
-      
+
     }catch(e:any){
       Swal.fire({
         icon: 'error',

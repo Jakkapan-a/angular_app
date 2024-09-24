@@ -65,22 +65,18 @@
                 </div>
                 <div class="card-footer">
                   <div class="row">
-                    <div class="col-4">
+                    <div class="col-6">
                       <button class="btn btn-danger btn-block" (click)="removeItem(item)">
-                        <i class="fa fa-times"></i>
+                        <i class="fa fa-times"></i> ลบออก
                       </button>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
                       <button class="btn btn-success btn-block" data-toggle="modal" data-target="#modalFoodSize"
                               (click)="chooseFoodSize(item)" >
-                        <i class="fa fa-list"></i>
+                        <i class="fa fa-list"></i> กำหนด
                       </button>
                     </div>
-                    <div class="col-4">
-                      <button class="btn btn-info btn-block">
-                        <i class="fa fa-file-alt"></i>
-                      </button>
-                    </div>
+
                   </div>
                 </div>
               </div>
@@ -99,7 +95,7 @@
     <tr>
       <th>รายการ</th>
       <th width="100px" class="text-end">จำนวน</th>
-      <th width="250px" class="text-center">เลือกขนาด</th>
+      <th width="450px" class="text-center">เลือกขนาด</th>
     </tr>
     </thead>
     <tbody>
@@ -113,7 +109,7 @@
             {
               @if (foodSize.moneyAdded > 0)
               {
-                <button class="btn btn-outline-primary btn-sm me-1">
+                <button class="btn {{ foodSize.moneyAdded === item.addedMoney ? 'btn-primary':'btn-outline-primary'}} mr-2 btn-sm me-1" (click)="selectFoodSize(item.id, foodSize.id)">
                   {{ foodSize.name }}
                   + {{ foodSize.moneyAdded }} บาท
                 </button>

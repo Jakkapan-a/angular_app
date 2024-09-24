@@ -79,10 +79,7 @@ export class SaleComponent implements OnInit {
   fetchSaleTemp() {
     this.http.get(config.apiUrl + '/api/sale-temp/' + this.userId).subscribe((res: any) => {
       this.saleTemps = res.results;
-      this.amount = 0;
-      for (let i = 0; i < this.saleTemps.length; i++) {
-        this.amount += this.saleTemps[i].price * this.saleTemps[i].qty;
-      }
+      this.computeAmount();
     });
   }
 
@@ -139,15 +136,13 @@ export class SaleComponent implements OnInit {
   chooseFoodSize(item: any) {
     try {
       let foodTypeId: number = item.Food.FoodTypeId;
-
       this.saleTempId = item.id;
       this.foodName = item.Food.name;
+
       this.http.get(config.apiUrl + '/api/food-size/filter/' + foodTypeId).subscribe((res: any) => {
         this.foodSizes = res.results;
       });
 
-
-      console.log(item);
       const body = {
         foodId: item.Food.id,
         qty: item.qty,
@@ -170,7 +165,26 @@ export class SaleComponent implements OnInit {
   fetchSaleTempDetail(){
     this.http.get(config.apiUrl + '/api/sale-temp-detail/'+this.saleTempId).subscribe((res: any) => {
       this.saleTempDetail = res.results;
+      this.computeAmount();
     });
+  }
+
+  computeAmount(){
+    try {
+      this.amount = 0;
+      for (let i = 0; i < this.saleTemps.length; i++) {
+        const item = this.saleTemps[i];
+        const totalPerRow = item.price * item.qty;
+        console.log({item});
+        for (let j = 0; j < item.SaleTempDetail.length; j++) {
+          this.amount += item.SaleTempDetail[j].addedMoney;
+        }
+        this.amount += totalPerRow;
+      }
+    }catch (e:any){
+      console.log(e.message);
+    }
+    console.log(this.amount);
   }
   async clearSaleTemp(){
     try {
@@ -196,4 +210,22 @@ export class SaleComponent implements OnInit {
     }
   }
 
+  selectFoodSize(saleTempId: number, foodSizeId: number){
+    try {
+        const body = {
+            saleTempId: saleTempId,
+            foodSizeId: foodSizeId
+        }
+        this.http.put(config.apiUrl + '/api/sale-temp-detail', body).subscribe((res: any) => {
+          this.fetchSaleTemp();
+          this.fetchSaleTempDetail();
+        });
+    }catch (e:any){
+      Swal.fire({
+        icon: 'error',
+        title: 'เกิดข้อผิดพลาด',
+        text: e.message
+      });
+    }
+  }
 }
